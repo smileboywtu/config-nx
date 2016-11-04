@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/Users/zopen/.oh-my-zsh
+export ZSH=/home/smile/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -53,7 +53,8 @@ plugins=(git)
 
 # User configuration
 
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin"
+export GOPATH=$HOME/workspace/go/
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:$GOPATH/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -82,17 +83,22 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+#
+# fcitx
+export XMODIFIERS="@im=fcitx"
+export GTK_IM_MODULE=xim
+export QT_IM_MODULE=xim
 
 # setup virtualenvwrapper
 export WORK_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/local/bin/python2
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
 source /usr/local/bin/virtualenvwrapper.sh
 
 # user command
 #alias pyso="cc -shared `python2-config --includes --libs --cflags --ldflags`"
 alias 2.7='workon 2.7'
-alias assistant='workon assistant'
-alias hc='workon hc'
 alias pyfind='find . -name \*.py|xargs grep --color -n'
 alias pyclean="find . -name '*.pyc' -print -delete"
 alias pycfind="find . -name '*.pyc' -print"
+alias pf="ps -ef f| grep --color"
+alias open="xdg-open"
