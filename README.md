@@ -8,6 +8,7 @@ config zsh for python develop.
 
 + virtualenvwrapper
 + golang config
++ fcitx
 
 # ali config
 
