@@ -1,5 +1,5 @@
 # Path to your oh-my-zsh installation.
-export ZSH=/home/smile/.oh-my-zsh
+export ZSH=/home/smileboywtu/.oh-my-zsh
 
 # Set name of the theme to load.
 # Look in ~/.oh-my-zsh/themes/
@@ -52,9 +52,9 @@ ZSH_THEME="robbyrussell"
 plugins=(git)
 
 # User configuration
-
+export GOROOT=/usr/local/go
 export GOPATH=$HOME/workspace/go/
-export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:/usr/local/go/bin:$GOPATH/bin"
+export PATH="/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin:$GOPATH/bin:$GOROOT/bin"
 # export MANPATH="/usr/local/man:$MANPATH"
 
 source $ZSH/oh-my-zsh.sh
@@ -92,13 +92,14 @@ export QT_IM_MODULE=xim
 # setup virtualenvwrapper
 export WORK_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python
-source /usr/local/bin/virtualenvwrapper.sh
+source /usr/bin/virtualenvwrapper.sh
 
 # user command
+source $HOME/bin/ali.sh
 #alias pyso="cc -shared `python2-config --includes --libs --cflags --ldflags`"
-alias 2.7='workon 2.7'
-alias pyfind='find . -name \*.py|xargs grep --color -n'
-alias pyclean="find . -name '*.pyc' -print -delete"
-alias pycfind="find . -name '*.pyc' -print"
-alias pf="ps -ef f| grep --color"
-alias open="xdg-open"
+#alias 2.7='workon 2.7'
+#alias pyfind='find . -name \*.py|xargs grep --color -n'
+#alias pyclean="find . -name '*.pyc' -print -delete"
+#alias pycfind="find . -name '*.pyc' -print"
+#alias pf="ps -ef f| grep --color"
+#alias open="xdg-open"
