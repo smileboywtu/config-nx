@@ -6,8 +6,8 @@ main for python develop environment.
 
 config zsh for python develop.
 
-+ pyfind 
-+ pycfind
-+ pyclean
 + virtualenvwrapper
++ golang config
+
+# ali config
 
