@@ -7,3 +7,4 @@ function findlf() {  find . -type f -size +100M -exec ls -l {} \; "$@"; }
 function svndm() {  svn rm $( svn status | sed -e '/^!/!d' -e 's/^!//' ); }
 function pslp() {  ps aux | sort -rnk 4; }
 function df() {  /usr/bin/df -hT "$@" | column -t; }
+function ts() { date -d @$1 ; }

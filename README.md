@@ -1,14 +1,48 @@
-# vim config
+# Tools
 
-main for python develop environment.
+- vim
+- zsh
+- ssh
+- httpie
+- storm
+- ali
+- gotty
+- croc
+- frp
 
-# oh my zsh config
+# build up
 
-config zsh for python develop.
+## zsh
 
-+ virtualenvwrapper
-+ golang config
-+ fcitx
+``` shell
+sh -c "$(curl -fsSL https://raw.githubusercontent.com/robbyrussell/oh-my-zsh/master/tools/install.sh)"
 
-# ali config
+apt-get install zsh
+chsh -s /bin/zsh
 
+```
+
+## ssh
+
+``` shell
+pip install storm
+```
+
+## httpie
+
+``` shell
+pip install httpie
+```
+
+
+## croc
+
+``` shell
+wget https://github.com/schollz/croc/releases/download/v0.4.1/croc_0.4.1_linux_64bit.tar.gz
+```
+
+## frp
+
+``` shell
+wget https://github.com/fatedier/frp/releases/download/v0.16.0/frp_0.16.0_linux_amd64.tar.gz
+```
