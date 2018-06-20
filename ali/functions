@@ -1,51 +1,87 @@
+## find content in python files at current directory
+## usage: pyfind "class Time"
 function pyfind() {
 	find . -type f -name \*.py | xargs grep --color -n "$@"
 }
+
+## use find to clean *.pycfiles
+## usage: pyclean
 function pyclean() {
 	find . -name *.pyc -print -delete "$@"
 }
+
+## progress find use pattern
+## usage: pf python
 function pf() {
 	ps -ef | grep --color "$@"
 }
+
+## list *.pyc files in current directory
+## usage: pycfind
 function pycfind() {
 	find . -name *.pyc -print "$@"
 }
+
+## list socket connection on this machine with order
+## usage: findiip
 function findiip() {
 	ss -ant | awk "{print $5}" | awk -F: "{print $1}" | sort | uniq -c | sort -k 1 -n -r
 }
+
+## find large file in current directory
+## usage: findlf
 function findlf() {
 	find . -type f -size +100M -exec ls -l {} \; "$@"
 }
+
+## delete file removed locally 
+## usage: svndm
 function svndm() {
 	svn rm $(svn status | sed -e '/^!/!d' -e 's/^!//')
 }
+
+## list process ordered by memory usage
+## usage: pslp
 function pslp() {
 	ps aux | sort -rnk 4
 }
+
+## detail disk report
 function df() {
 	/usr/bin/df -hT "$@" | column -t
 }
+
+## convert timestamp to date
+## usage: rts 1529463708
 function rts() {
 	date -d @$1
 }
+
+## get current timestamp
+## usage: ts
 function ts() {
 	date +%s
 }
+
+## trim head and tail white space
+# Usage: trim_string "   example   string    "
 function trim_string() {
-	# Usage: trim_string "   example   string    "
 	: "${1#"${1%%[![:space:]]*}"}"
 	: "${_%"${_##*[![:space:]]}"}"
 	printf '%s\n' "$_"
 }
+
+# Usage: trim_all "   example   string    "
 function trim_all() {
-	# Usage: trim_all "   example   string    "
+	
 	set -f
 	set -- $*
 	printf '%s\n' "$*"
 	set +f
 }
+
+# Usage: regex "string" "regex"
 function regex() {
-	# Usage: regex "string" "regex"
 	[[ $1 =~ $2 ]] && printf '%s\n' "${BASH_REMATCH[1]}"
 }
 
@@ -58,58 +94,58 @@ function is_hex_color() {
 	fi
 }
 
+# Usage: split "string" "delimiter"
 function split() {
-	# Usage: split "string" "delimiter"
 	IFS=$'\n' read -d "" -ra arr <<<"${1//$2/$'\n'}"
 	printf '%s\n' "${arr[@]}"
 }
 
+# Usage: lower "string"
 function lower() {
-	# Usage: lower "string"
 	printf '%s\n' "${1,,}"
 }
 
+# Usage: upper "string"
 function upper() {
-	# Usage: upper "string"
 	printf '%s\n' "${1^^}"
 }
 
+# Usage: trim_quotes "string"
 function trim_quotes() {
-	# Usage: trim_quotes "string"
 	: "${1//\'/}"
 	printf '%s\n' "${_//\"/}"
 }
 
+# Usage: strip_all "string" "pattern"
 function strip_all() {
-	# Usage: strip_all "string" "pattern"
 	printf '%s\n' "${1//$2/}"
 }
 
+# Usage: strip "string" "pattern"
 function strip() {
-	# Usage: strip "string" "pattern"
 	printf '%s\n' "${1/$2/}"
 }
 
+# Usage: lstrip "string" "pattern"
 function lstrip() {
-	# Usage: lstrip "string" "pattern"
 	printf '%s\n' "${1##$2}"
 }
 
+# Usage: rstrip "string" "pattern"
 function rstrip() {
-	# Usage: rstrip "string" "pattern"
 	printf '%s\n' "${1%%$2}"
 }
 
+# Usage: reverse_array "array"
 function reverse_array() {
-	# Usage: reverse_array "array"
 	shopt -s extdebug
 	f() (printf '%s\n' "${BASH_ARGV[@]}")
 	f "$@"
 	shopt -u extdebug
 }
 
+# Usage: remove_array_dups "array"
 function remove_array_dups() {
-	# Usage: remove_array_dups "array"
 	declare -A tmp_array
 
 	for i in "$@"; do
@@ -119,8 +155,8 @@ function remove_array_dups() {
 	printf '%s\n' "${!tmp_array[@]}"
 }
 
+# Usage: random_array_element "array"
 function random_array_element() {
-	# Usage: random_array_element "array"
 	local arr=("$@")
 	printf '%s\n' "${arr[RANDOM % $#]}"
 }
@@ -130,26 +166,27 @@ function cycle() {
 	((i = i >= ${#arr[@]} - 1 ? 0 : ++i))
 }
 
+# Usage: head "n" "file"
 function head() {
-	# Usage: head "n" "file"
 	mapfile -tn "$1" line <"$2"
 	printf '%s\n' "${line[@]}"
 }
 
+# Usage: tail "n" "file"
 function tail() {
-	# Usage: tail "n" "file"
 	mapfile -tn 0 line <"$2"
 	printf '%s\n' "${line[@]: -$1}"
 }
 
+# Usage: lines "file"
 function lines() {
-	# Usage: lines "file"
 	mapfile -tn 0 lines <"$1"
 	printf '%s\n' "${#lines[@]}"
 }
 
+
+# Usage: lines_loop "file"
 function lines_loop() {
-	# Usage: lines_loop "file"
 	count=0
 	while IFS= read -r _; do
 		((count++))
@@ -157,14 +194,14 @@ function lines_loop() {
 	printf '%s\n' "$count"
 }
 
+# Usage: count /path/to/dir/*
+#        count /path/to/dir/*/
 function count() {
-	# Usage: count /path/to/dir/*
-	#        count /path/to/dir/*/
 	printf '%s\n' "$#"
 }
 
+# Usage: extract file "opening marker" "closing marker"
 function extract() {
-	# Usage: extract file "opening marker" "closing marker"
 	while IFS=$'\n' read -r line; do
 		[[ "$extract" && "$line" != "$3" ]] &&
 			printf '%s\n' "$line"
@@ -174,22 +211,22 @@ function extract() {
 	done <"$1"
 }
 
+# Usage: dirname "path"
 function dirname() {
-	# Usage: dirname "path"
 	printf '%s\n' "${1%/*}/"
 }
 
+# Usage: basename "path"
 function basename() {
-	# Usage: basename "path"
 	: "${1%/}"
 	printf '%s\n' "${_##*/}"
 }
 
-function get_term_size() {
-	# Usage: get_term_size
+# Usage: get_term_size
 
 	# (:;:) is a micro sleep to ensure the variables are
 	# exported immediately.
+function get_term_size() {
 	shopt -s checkwinsize
 	(
 		:
@@ -198,14 +235,14 @@ function get_term_size() {
 	printf '%s\n' "$LINES $COLUMNS"
 }
 
+# Usage: get_cursor_pos
 function get_cursor_pos() {
-	# Usage: get_cursor_pos
 	IFS='[;' read -p $'\e[6n' -d R -rs _ y x _
 	printf '%s\n' "$x $y"
 }
 
+# Usage: hex_to_rgb "#FFFFFF"
 function hex_to_rgb() {
-	# Usage: hex_to_rgb "#FFFFFF"
 	((r = 16#${1:1:2}))
 	((g = 16#${1:3:2}))
 	((b = 16#${1:5:6}))
@@ -213,13 +250,13 @@ function hex_to_rgb() {
 	printf '%s\n' "$r $g $b"
 }
 
+# Usage: rgb_to_hex "r" "g" "b"
 function rgb_to_hex() {
-	# Usage: rgb_to_hex "r" "g" "b"
 	printf '#%02x%02x%02x\n' "$1" "$2" "$3"
 }
 
+# Usage: uuid
 function uuid() {
-	# Usage: uuid
 	C="89ab"
 
 	for ((N = 0; N < 16; ++N)); do
